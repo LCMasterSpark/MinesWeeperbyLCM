@@ -9,6 +9,7 @@ namespace 扫雷
     /// </summary>
     public partial class MainWindow : Window
     {
+        // 街机模式固定安全格数量，因此雷数会随棋盘尺寸变化。
         private const int ArcadeSafeCellCount = 40;
         private RadioButton[] difficultyButtons = Array.Empty<RadioButton>();
 
@@ -22,6 +23,7 @@ namespace 扫雷
 
         private void BtnStartGame_Click(object sender, RoutedEventArgs e)
         {
+            // 先确定棋盘尺寸，再计算雷数；街机模式会跳过普通难度选择。
             bool isArcadeMode = cbArcadeMode.IsChecked == true;
             int boardSize = GetSelectedBoardSize();
             if (boardSize == 0)
@@ -42,6 +44,7 @@ namespace 扫雷
 
             if (isArcadeMode)
             {
+                // 例如 8x8 是 24 雷，12x12 是 104 雷，始终留下 40 个安全格。
                 mineCount = boardSize * boardSize - ArcadeSafeCellCount;
                 difficulty = "街机模式";
             }
@@ -72,6 +75,7 @@ namespace 扫雷
 
         private void UpdateArcadeOptions()
         {
+            // 街机模式有独立规则，所以禁用普通难度，并禁止过小的 5x5 棋盘。
             bool isArcadeMode = cbArcadeMode.IsChecked == true;
 
             foreach (RadioButton button in difficultyButtons)
@@ -106,6 +110,7 @@ namespace 扫雷
 
         private bool TryGetClassicDifficulty(int boardSize, out int mineCount, out string difficulty, out bool isPrankMode)
         {
+            // 普通模式难度只决定目标雷数；小棋盘会自动压到最大可放雷数。
             int maxMineCount = boardSize * boardSize - 1;
             isPrankMode = false;
 
@@ -158,6 +163,7 @@ namespace 扫雷
 
         private void ShowLastGameStats()
         {
+            // 普通模式展示最后一局，街机模式展示最近 5 局汇总。
             if (GameStats.LastClassicResult == null)
             {
                 MenuMessageText.Text = "准备就绪，选择一个难度开始游戏。";
