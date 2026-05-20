@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:扫雷"
         mc:Ignorable="d"
-        Title="Minesweeper" Height="700" Width="660"
+        Title="Minesweeper" Height="740" Width="660"
         WindowStartupLocation="CenterScreen"
         Background="#F0F0F0">
     <Grid Margin="20">
@@ -15,7 +15,14 @@
                        FontWeight="Bold"
                        Foreground="#2C3E50"
                        HorizontalAlignment="Center"
-                       Margin="0,0,0,20"/>
+                       Margin="0,0,0,8"/>
+
+            <TextBlock x:Name="PlayerText"
+                       FontSize="14"
+                       FontWeight="SemiBold"
+                       Foreground="#7F8C8D"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,14"/>
 
             <CheckBox x:Name="cbArcadeMode"
                       Content="街机模式（3 颗心，固定 40 个安全格）"
@@ -47,55 +54,13 @@
                                    Foreground="#34495E"
                                    Margin="0,0,0,15"/>
 
-                        <RadioButton x:Name="rbBaby"
-                                     Content="宝宝模式 (5 个雷)"
-                                     FontSize="14"
-                                     GroupName="Difficulty"
-                                     Margin="0,5"
-                                     Foreground="#2C3E50"/>
-
-                        <RadioButton x:Name="rbEasy"
-                                     Content="简单 (10 个雷)"
-                                     FontSize="14"
-                                     GroupName="Difficulty"
-                                     IsChecked="True"
-                                     Margin="0,5"
-                                     Foreground="#2C3E50"/>
-
-                        <RadioButton x:Name="rbMedium"
-                                     Content="中等 (25 个雷)"
-                                     FontSize="14"
-                                     GroupName="Difficulty"
-                                     Margin="0,5"
-                                     Foreground="#2C3E50"/>
-
-                        <RadioButton x:Name="rbHard"
-                                     Content="困难 (50 个雷)"
-                                     FontSize="14"
-                                     GroupName="Difficulty"
-                                     Margin="0,5"
-                                     Foreground="#2C3E50"/>
-
-                        <RadioButton x:Name="rbLarge"
-                                     Content="大棋盘 (70 个雷)"
-                                     FontSize="14"
-                                     GroupName="Difficulty"
-                                     Margin="0,5"
-                                     Foreground="#2C3E50"/>
-
-                        <RadioButton x:Name="rbHuge"
-                                     Content="巨型棋盘 (110 个雷)"
-                                     FontSize="14"
-                                     GroupName="Difficulty"
-                                     Margin="0,5"
-                                     Foreground="#2C3E50"/>
-
-                        <RadioButton x:Name="rbExtreme"
-                                     Content="？？？ "
-                                     FontSize="14"
-                                     GroupName="Difficulty"
-                                     Margin="0,5"
-                                     Foreground="#2C3E50"/>
+                        <RadioButton x:Name="rbBaby" Content="宝宝模式 (5 个雷)" FontSize="14" GroupName="Difficulty" Margin="0,5" Foreground="#2C3E50"/>
+                        <RadioButton x:Name="rbEasy" Content="简单 (10 个雷)" FontSize="14" GroupName="Difficulty" IsChecked="True" Margin="0,5" Foreground="#2C3E50"/>
+                        <RadioButton x:Name="rbMedium" Content="中等 (25 个雷)" FontSize="14" GroupName="Difficulty" Margin="0,5" Foreground="#2C3E50"/>
+                        <RadioButton x:Name="rbHard" Content="困难 (50 个雷)" FontSize="14" GroupName="Difficulty" Margin="0,5" Foreground="#2C3E50"/>
+                        <RadioButton x:Name="rbLarge" Content="大棋盘 (70 个雷)" FontSize="14" GroupName="Difficulty" Margin="0,5" Foreground="#2C3E50"/>
+                        <RadioButton x:Name="rbHuge" Content="巨型棋盘 (110 个雷)" FontSize="14" GroupName="Difficulty" Margin="0,5" Foreground="#2C3E50"/>
+                        <RadioButton x:Name="rbExtreme" Content="？？？ (最大雷数)" FontSize="14" GroupName="Difficulty" Margin="0,5" Foreground="#2C3E50"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2">
@@ -105,34 +70,10 @@
                                    Foreground="#34495E"
                                    Margin="0,0,0,15"/>
 
-                        <RadioButton x:Name="rbSize5"
-                                     Content="5 x 5"
-                                     FontSize="14"
-                                     GroupName="BoardSize"
-                                     Margin="0,5"
-                                     Foreground="#2C3E50"/>
-
-                        <RadioButton x:Name="rbSize8"
-                                     Content="8 x 8"
-                                     FontSize="14"
-                                     GroupName="BoardSize"
-                                     Margin="0,5"
-                                     Foreground="#2C3E50"/>
-
-                        <RadioButton x:Name="rbSize12"
-                                     Content="12 x 12"
-                                     FontSize="14"
-                                     GroupName="BoardSize"
-                                     IsChecked="True"
-                                     Margin="0,5"
-                                     Foreground="#2C3E50"/>
-
-                        <RadioButton x:Name="rbSize15"
-                                     Content="15 x 15"
-                                     FontSize="14"
-                                     GroupName="BoardSize"
-                                     Margin="0,5"
-                                     Foreground="#2C3E50"/>
+                        <RadioButton x:Name="rbSize5" Content="5 x 5" FontSize="14" GroupName="BoardSize" Margin="0,5" Foreground="#2C3E50"/>
+                        <RadioButton x:Name="rbSize8" Content="8 x 8" FontSize="14" GroupName="BoardSize" Margin="0,5" Foreground="#2C3E50"/>
+                        <RadioButton x:Name="rbSize12" Content="12 x 12" FontSize="14" GroupName="BoardSize" IsChecked="True" Margin="0,5" Foreground="#2C3E50"/>
+                        <RadioButton x:Name="rbSize15" Content="15 x 15" FontSize="14" GroupName="BoardSize" Margin="0,5" Foreground="#2C3E50"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -159,42 +100,30 @@
                 </StackPanel>
             </Border>
 
-            <Button x:Name="btnStartGame"
-                    Content="开始游戏"
-                    FontSize="18"
-                    FontWeight="Bold"
-                    Padding="40,15"
-                    Background="#3498DB"
-                    Foreground="White"
-                    BorderThickness="0"
-                    Cursor="Hand"
-                    Click="BtnStartGame_Click"
-                    Margin="0,4,0,0">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}"
-                                            CornerRadius="8"
-                                            Padding="{TemplateBinding Padding}">
-                                        <ContentPresenter HorizontalAlignment="Center"
-                                                          VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#2980B9"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#21618C"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnStartGame"
+                        Content="开始游戏"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Padding="34,14"
+                        Background="#3498DB"
+                        Foreground="White"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Click="BtnStartGame_Click"
+                        Margin="0,4,10,0"/>
+
+                <Button Content="查看排行榜"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Padding="24,14"
+                        Background="#2ECC71"
+                        Foreground="White"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Click="LeaderboardButton_Click"
+                        Margin="0,4,0,0"/>
+            </StackPanel>
 
             <TextBlock Text="左键揭开方块，右键标记地雷。普通模式第一步避雷；街机模式需要手动返回主菜单。"
                        FontSize="12"

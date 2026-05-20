@@ -1,0 +1,83 @@
+<Window x:Class="扫雷.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:扫雷"
+        mc:Ignorable="d"
+        Title="扫雷 - 玩家登录" Height="460" Width="560"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F0F0">
+    <Grid Margin="24">
+        <StackPanel Width="420" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="扫雷游戏"
+                       FontSize="42"
+                       FontWeight="Bold"
+                       Foreground="#2C3E50"
+                       TextAlignment="Center"
+                       Margin="0,0,0,10"/>
+
+            <TextBlock Text="选择玩家保存战绩，或以游客身份直接开始。"
+                       FontSize="14"
+                       Foreground="#7F8C8D"
+                       TextAlignment="Center"
+                       Margin="0,0,0,22"/>
+
+            <Border Background="White"
+                    BorderBrush="#D7DEE2"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="18"
+                    Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="玩家名"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               Foreground="#34495E"
+                               Margin="0,0,0,8"/>
+                    <TextBox x:Name="PlayerNameTextBox"
+                             FontSize="15"
+                             Padding="8"
+                             Margin="0,0,0,12"/>
+
+                    <TextBlock Text="已有玩家"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               Foreground="#34495E"
+                               Margin="0,0,0,8"/>
+                    <ComboBox x:Name="PlayerComboBox"
+                              FontSize="15"
+                              Padding="8"
+                              SelectionChanged="PlayerComboBox_SelectionChanged"
+                              Margin="0,0,0,16"/>
+
+                    <TextBlock x:Name="LoginMessageText"
+                               FontSize="13"
+                               Foreground="#7F8C8D"
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"
+                               Margin="0,0,0,14"/>
+
+                    <Button Content="登录并开始"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Padding="18,10"
+                            Background="#3498DB"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="LoginButton_Click"/>
+                </StackPanel>
+            </Border>
+
+            <Button Content="游客开始（不保存战绩）"
+                    FontSize="15"
+                    Padding="18,10"
+                    Background="#95A5A6"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Click="GuestButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

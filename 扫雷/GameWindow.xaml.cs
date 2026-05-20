@@ -9,7 +9,7 @@ namespace 扫雷
     /// <summary>
     /// 游戏窗口：负责生成棋盘、处理点击、判断胜负，并写入本局战绩。
     /// </summary>
-    public partial class Window1 : Window
+    public partial class GameWindow : Window
     {
         // 窗口层保留模式配置和按钮矩阵，具体规则都委托给 Gaming。
         private readonly int rows;
@@ -27,7 +27,7 @@ namespace 扫雷
         /// <summary>
         /// 创建一局游戏窗口；普通/街机/？？？模式共用同一套棋盘 UI。
         /// </summary>
-        public Window1(int mineCount, string difficulty, int rows, int columns, bool isPrankMode = false, bool isArcadeMode = false)
+        public GameWindow(int mineCount, string difficulty, int rows, int columns, bool isPrankMode = false, bool isArcadeMode = false)
         {
             InitializeComponent();
 
@@ -246,18 +246,21 @@ namespace 扫雷
         {
             // 结算时写入全局战绩；街机模式还会弹出“再来一局/回菜单”窗口。
             gameEnded = true;
-            GameStats.AddResult(new GameResult
-            {
-                Difficulty = difficulty,
-                BoardSize = $"{rows}x{columns}",
-                IsArcadeMode = isArcadeMode,
-                IsWin = isWin,
-                Duration = DateTime.Now - startTime,
-                CorrectFlags = game.CorrectFlagCount,
-                TotalMines = mineCount,
-                RevealedSafeCells = game.RevealedSafeCount,
-                HeartsRemaining = isArcadeMode ? Math.Max(game.Lives, 0) : 0
-            });
+            GameStats.AddResult
+            (
+                new GameResult
+                {
+                    Difficulty = difficulty,
+                    BoardSize = $"{rows}x{columns}",
+                    IsArcadeMode = isArcadeMode,
+                    IsWin = isWin,
+                    Duration = DateTime.Now - startTime,
+                    CorrectFlags = game.CorrectFlagCount,
+                    TotalMines = mineCount,
+                    RevealedSafeCells = game.RevealedSafeCount,
+                    HeartsRemaining = isArcadeMode ? Math.Max(game.Lives, 0) : 0
+                }
+            );
 
             DisableBoard();
             MenuButton.Content = isArcadeMode ? "返回主菜单" : "再来一把";
@@ -299,7 +302,7 @@ namespace 扫雷
         private void RestartArcadeGame()
         {
             // 街机“再来一局”保留当前棋盘尺寸和模式配置，不回主菜单。
-            var gameWindow = new Window1(mineCount, difficulty, rows, columns, isPrankMode, isArcadeMode)
+            var gameWindow = new GameWindow(mineCount, difficulty, rows, columns, isPrankMode, isArcadeMode)
             {
                 Title = Title,
                 WindowStartupLocation = WindowStartupLocation.CenterScreen

@@ -17,13 +17,13 @@ namespace 扫雷
         {
             InitializeComponent();
             difficultyButtons = new[] { rbBaby, rbEasy, rbMedium, rbHard, rbLarge, rbHuge, rbExtreme };
+            PlayerText.Text = PlayerSession.IsGuest ? "当前身份：游客（不保存战绩）" : $"当前玩家：{PlayerSession.DisplayName}";
             ShowLastGameStats();
             UpdateArcadeOptions();
         }
 
         private void BtnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            // 先确定棋盘尺寸，再计算雷数；街机模式会跳过普通难度选择。
             bool isArcadeMode = cbArcadeMode.IsChecked == true;
             int boardSize = GetSelectedBoardSize();
             if (boardSize == 0)
@@ -54,13 +54,23 @@ namespace 扫雷
                 return;
             }
 
-            var gameWindow = new Window1(mineCount, difficulty, boardSize, boardSize, isPrankMode, isArcadeMode)
+            var gameWindow = new GameWindow(mineCount, difficulty, boardSize, boardSize, isPrankMode, isArcadeMode)
             {
                 Title = $"扫雷 - {difficulty} - {boardSize}x{boardSize}",
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
             gameWindow.Show();
             Close();
+        }
+
+        private void LeaderboardButton_Click(object sender, RoutedEventArgs e)
+        {
+            var leaderboardWindow = new LeaderboardWindow
+            {
+                Owner = this,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            leaderboardWindow.ShowDialog();
         }
 
         private void ArcadeMode_Changed(object sender, RoutedEventArgs e)

@@ -52,6 +52,7 @@ namespace 扫雷
         public bool IsFlagged(int row, int col) => flagged[row, col];
         public bool IsRevealed(int row, int col) => revealed[row, col];
         public int AdjacentCount(int row, int col) => adjacentCounts[row, col];
+        public bool CanClaimHeart(int row, int col) => IsArcadeMode && revealed[row, col] && hearts[row, col];
 
         /// <summary>
         /// 首次点击后再生成棋盘；safeRow/safeCol 用来实现第一步避雷。
@@ -108,6 +109,20 @@ namespace 扫雷
 
             Lives--;
             return Lives <= 0;
+        }
+
+        public bool ClaimHeart(int row, int col)
+        {
+            if (!CanClaimHeart(row, col))
+            {
+                return false;
+            }
+
+            int previousLives = Lives;
+            Lives = Math.Min(Lives + 1, ArcadeMaxLives);
+            hearts[row, col] = false;
+            RevealedSafeCount++;
+            return Lives > previousLives;
         }
 
         /// <summary>
@@ -212,16 +227,13 @@ namespace 扫雷
             if (revealed[row, col] || flagged[row, col] || mines[row, col]) return;
 
             revealed[row, col] = true;
-            RevealedSafeCount++;
-
-            int previousLives = Lives;
-            if (hearts[row, col])
+            if (!hearts[row, col])
             {
-                Lives = Math.Min(Lives + 1, ArcadeMaxLives);
+                RevealedSafeCount++;
             }
 
             int count = adjacentCounts[row, col];
-            revealedCells.Add(new RevealedCell(row, col, count, hearts[row, col], Lives > previousLives));
+            revealedCells.Add(new RevealedCell(row, col, count, hearts[row, col], false));
 
             if (count == 0 && !hearts[row, col])
             {
